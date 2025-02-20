@@ -1,18 +1,220 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>homepage-code-generator</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
-    <meta property="og:image" content="/og-image.png" />
-  </head>
+    <title>ZenTask - Student Productivity & Wellness</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
+      body {
+        background-color: #D3E4FD;
+        font-family: system-ui, -apple-system, sans-serif;
+        min-height: 100vh;
+        color: #1a1a1a;
+        overflow-x: hidden;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1.5rem;
+        z-index: 50;
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+      }
+
+      .logo::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: currentColor;
+        transition: width 0.3s;
+      }
+
+      .logo:hover::after {
+        width: 100%;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .glass-button {
+        padding: 0.5rem 1.5rem;
+        backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 9999px;
+        color: inherit;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .glass-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.05);
+      }
+
+      .glass-button:active {
+        transform: scale(0.95);
+      }
+
+      main {
+        padding: 8rem 1rem 0;
+        text-align: center;
+        position: relative;
+        z-index: 20;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 10vw, 6rem);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.02em;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s forwards;
+      }
+
+      .tagline {
+        font-size: clamp(1.2rem, 4vw, 1.5rem);
+        color: rgba(26, 26, 26, 0.8);
+        max-width: 32rem;
+        margin: 0 auto;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s 0.2s forwards;
+      }
+
+      .flower {
+        position: absolute;
+        pointer-events: none;
+        z-index: 10;
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      .flower img {
+        width: clamp(3rem, 8vw, 6rem);
+        height: auto;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes scaleIn {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @media (max-width: 640px) {
+        nav {
+          padding: 1rem;
+        }
+
+        .nav-links {
+          gap: 0.75rem;
+        }
+
+        .glass-button {
+          padding: 0.4rem 1rem;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
   <body>
-    <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
+    <nav>
+      <div class="nav-container">
+        <a href="/" class="logo">ZenTask</a>
+        <div class="nav-links">
+          <a href="/" class="glass-button">Home</a>
+          <a href="/signin" class="glass-button">Sign in</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <h1>ZenTask</h1>
+      <p class="tagline">productivity and mental wellness for students</p>
+    </main>
+
+    <div id="flowers"></div>
+
+    <script>
+      // Create and position flowers
+      const flowers = [
+        { top: '10%', right: '5%', delay: 0 },
+        { top: '30%', right: '15%', delay: 0.2 },
+        { top: '50%', right: '8%', delay: 0.4 },
+        { top: '70%', right: '12%', delay: 0.6 },
+        { top: '85%', right: '5%', delay: 0.8 }
+      ];
+
+      const flowersContainer = document.getElementById('flowers');
+      
+      flowers.forEach((pos, i) => {
+        const flower = document.createElement('div');
+        flower.className = 'flower';
+        flower.style.cssText = `
+          top: ${pos.top};
+          right: ${pos.right};
+          animation: scaleIn 0.8s ${pos.delay}s forwards;
+        `;
+        
+        const img = document.createElement('img');
+        img.src = '/lovable-uploads/30826455-5eb9-47e4-8fd4-a69d6d12b40e.png';
+        img.alt = '';
+        
+        flower.appendChild(img);
+        flowersContainer.appendChild(flower);
+      });
+
+      // Parallax effect on mouse move
+      document.addEventListener('mousemove', (e) => {
+        const flowers = document.querySelectorAll('.flower');
+        const { clientX, clientY } = e;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        
+        flowers.forEach((flower, index) => {
+          const speed = (index + 1) * 0.01;
+          const x = (clientX - centerX) * speed;
+          const y = (clientY - centerY) * speed;
+          flower.style.transform = `translate(${x}px, ${y}px)`;
+        });
+      });
+    </script>
   </body>
 </html>
