@@ -111,30 +111,10 @@
         animation: fadeIn 0.8s 0.2s forwards;
       }
 
-      .flower {
-        position: absolute;
-        pointer-events: none;
-        z-index: 10;
-        opacity: 0;
-        transform: scale(0);
-      }
-
-      .flower img {
-        width: clamp(3rem, 8vw, 6rem);
-        height: auto;
-      }
-
       @keyframes fadeIn {
         to {
           opacity: 1;
           transform: translateY(0);
-        }
-      }
-
-      @keyframes scaleIn {
-        to {
-          opacity: 1;
-          transform: scale(1);
         }
       }
 
@@ -169,52 +149,5 @@
       <h1>ZenTask</h1>
       <p class="tagline">productivity and mental wellness for students</p>
     </main>
-
-    <div id="flowers"></div>
-
-    <script>
-      // Create and position flowers
-      const flowers = [
-        { top: '10%', right: '5%', delay: 0 },
-        { top: '30%', right: '15%', delay: 0.2 },
-        { top: '50%', right: '8%', delay: 0.4 },
-        { top: '70%', right: '12%', delay: 0.6 },
-        { top: '85%', right: '5%', delay: 0.8 }
-      ];
-
-      const flowersContainer = document.getElementById('flowers');
-      
-      flowers.forEach((pos, i) => {
-        const flower = document.createElement('div');
-        flower.className = 'flower';
-        flower.style.cssText = `
-          top: ${pos.top};
-          right: ${pos.right};
-          animation: scaleIn 0.8s ${pos.delay}s forwards;
-        `;
-        
-        const img = document.createElement('img');
-        img.src = '/lovable-uploads/30826455-5eb9-47e4-8fd4-a69d6d12b40e.png';
-        img.alt = '';
-        
-        flower.appendChild(img);
-        flowersContainer.appendChild(flower);
-      });
-
-      // Parallax effect on mouse move
-      document.addEventListener('mousemove', (e) => {
-        const flowers = document.querySelectorAll('.flower');
-        const { clientX, clientY } = e;
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        
-        flowers.forEach((flower, index) => {
-          const speed = (index + 1) * 0.01;
-          const x = (clientX - centerX) * speed;
-          const y = (clientY - centerY) * speed;
-          flower.style.transform = `translate(${x}px, ${y}px)`;
-        });
-      });
-    </script>
   </body>
 </html>
